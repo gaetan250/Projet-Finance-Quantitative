@@ -25,10 +25,9 @@ def health_check():
 
     missing_routes = [file for file in route_files if not os.path.exists(os.path.join(routes_folder, file))]
 
-    if missing_files or missing_routes:
+    if missing_routes:
         return {
             "status": "error",
-            "missing_files": missing_files,
             "missing_routes": missing_routes
         }
 
@@ -37,7 +36,7 @@ def health_check():
 @app.get("/readme")
 def read_readme(request: Request):
     """Affiche le contenu du README.md."""
-    readme_path = "README.md"
+    readme_path = "README_API.md"
     
     if not os.path.exists(readme_path):
         raise HTTPException(status_code=404, detail="README.md non trouvé")
@@ -47,7 +46,7 @@ def read_readme(request: Request):
     
     return templates.TemplateResponse("readme.html", {"request": request, "content": content})
 
-# Inclusion des routes existantes
+
 app.include_router(data_processing.router, prefix="/fetch-data")
 app.include_router(models_garch.router, prefix="/garch")
 app.include_router(models_lstm.router, prefix="/lstm-garch-cvi")
