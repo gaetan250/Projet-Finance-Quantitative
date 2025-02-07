@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimisation du Portefeuille - CVaR</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Optimisation du Portefeuille (Max Sharpe basé sur la CVaR)</h1>
+        
+        <h2>Ratio de Sharpe Maximisé :</h2>
+        <p><strong>{{ "%.4f"|format(sharpe_ratio) }}</strong></p>
+        
+        <h2>Poids Optimaux des Actifs :</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Crypto</th>
+                    <th>Poids Optimal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset, weight in zip(assets, optimal_weights) %}
+                <tr>
+                    <td>{{ asset }}</td>
+                    <td>{{ "%.2f"|format(weight * 100) }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Graphiques des Résultats :</h2>
+        <div class="images">
+            <img src="{{ url_for('static', path='/sharpe_cvar_cumulative_returns.png') }}" alt="Rendements Cumulés">
+            <img src="{{ url_for('static', path='/sharpe_cvar_portfolio_weights.png') }}" alt="Répartition des Poids">
+        </div>
+
+        <a href="/" class="btn">Retour à l'accueil</a>
+    </div>
+</body>
+</html>
