@@ -9,7 +9,7 @@ This FastAPI-based project provides an **API** for:
 
 ## **📂 Project Structure**
 ```
-📁 Quantitative-Finance-API
+📁 Projet-Finance-Quantitative--API
 │️─️ 📂 routes
 │   │️─️ data_processing.py   # Data fetching (Crypto & CVI)
 │   │️─️ models_garch.py      # GARCH volatility model
@@ -25,7 +25,7 @@ This FastAPI-based project provides an **API** for:
 │   │️─️ sharpe_cvar_results.html  # CVaR optimization results
 │️─️ 📂 static
 │   │️─️ styles.css           # CSS for frontend
-│   │️─️ plots/               # Auto-generated charts
+│   │️─️ all image in format.png # Auto-generatedcharts
 │️─️ main.py                  # FastAPI entry point
 │️─️ README.md                # Documentation
 │️─️ requirements.txt          # Dependencies
@@ -74,11 +74,11 @@ You can explore and test the API directly using:
 
 ---
 
-### **3️⃣ LSTM-GARCH-CVI Volatility Model**
+### **3️⃣ LSTM  Volatility Model**
 | **Endpoint** | **Method** | **Description** |
 |-------------|-----------|----------------|
-| `/lstm-garch-cvi/run` | **GET** | Trains the LSTM-GARCH-CVI model and generates volatility predictions. |
-| `/lstm-garch-cvi/plot` | **GET** | Visualizes actual vs. predicted volatility. |
+| `/lstm/run` | **GET** | Trains the LSTM-GARCH-CVI model and generates volatility predictions. |
+| `/lstm/plot` | **GET** | Visualizes actual vs. predicted volatility. |
 
 ---
 
