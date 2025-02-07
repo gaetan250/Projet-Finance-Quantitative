@@ -1,87 +1,175 @@
-# Projet-Finance-Quantitative
+# 📌 Project: Volatility Prediction & Portfolio Optimization
 
-# 📌 Documentation de l'API de Prédiction et d'Optimisation des Cryptos
+This project aims to **predict cryptocurrency volatility** using an **LSTM-GARCH-CVI** model and then **optimize a portfolio** by maximizing the **Sharpe ratio** and **Conditional Value at Risk (CVaR)**.
 
-## 🚀 Introduction
-
-Cette API fournit des fonctionnalités avancées de prédiction et d’optimisation des cryptos en utilisant un modèle LSTM combiné avec GARCH et CVaR. Elle permet :\
-✅ La récupération des données financières depuis Yahoo Finance\
-✅ La prédiction de la volatilité réalisée des cryptos via un modèle LSTM\
-✅ L’optimisation d’un portefeuille de cryptos avec le ratio de Sharpe et la CVaR
+The entire system is structured with **FastAPI**, enabling access to functionalities via an API.
 
 ---
 
-## 📍 Endpoints de l'API
-
-### 📈 Prédiction avec LSTM
-
-#### 1️⃣ Lancer l'entraînement et la prédiction
-
-**URL:** `/run`\
-**Méthode:** `GET`\
-**Description:** Ce endpoint entraîne le modèle LSTM si nécessaire et génère des prédictions de volatilité pour les cryptos sélectionnées.
-
-**Réponse:**\
-📌 Retourne une page HTML affichant les résultats des prédictions sous forme de graphiques et de métriques de performance (MSE, RMSE, MAE).
-
----
-
-### 📊 Optimisation du portefeuille (Sharpe et CVaR)
-
-#### 2️⃣ Lancer l'optimisation du portefeuille avec Sharpe
-
-**URL:** `/run`\
-**Méthode:** `GET`\
-**Description:** Ce endpoint charge les rendements log, récupère les prédictions de volatilité et optimise un portefeuille de cryptos en maximisant le ratio de Sharpe.
-
-**Réponse:**\
-📌 Retourne les poids optimaux du portefeuille, la volatilité moyenne prédite, ainsi qu’un graphique des performances cumulées du portefeuille.
+## **📂 Project Structure**
+```
+📁Finance-Quantitave-Project
+│── 📂 routes
+│   │── data_processing.py   # Data fetching (Crypto & CVI)
+│   │── models_garch.py      # GARCH volatility model
+│   │── models_lstm.py       # LSTM-GARCH-CVI volatility model
+│   │── sharpe.py            # Portfolio optimization with Sharpe ratio
+│   │── sharpe_cvar.py       # Portfolio optimization with CVaR
+│── 📂 templates
+│   │── index.html           # API web interface
+│   │── fetch_data.html      # Data visualization
+│   │── garch_results.html   # GARCH model results
+│   │── lstm_results.html    # LSTM-GARCH-CVI model results
+│   │── sharpe_results.html  # Sharpe ratio optimization results
+│   │── sharpe_cvar_results.html  # CVaR optimization results
+│── 📂 static
+│   │── styles.css           # Web interface styling
+│   │── plots (Generated graphs)
+│── main.py                  # Main FastAPI entry point
+│── README.md                # Complete documentation
+│── requirements.txt          # Required dependencies
+```
 
 ---
 
-#### 3️⃣ Lancer l'optimisation du portefeuille avec Sharpe basé sur la CVaR
+## **🚀 Installation and Setup**
+### **1️⃣ Install Dependencies**
+Ensure you have **Python 3.8+**, then run:
+```sh
+pip install -r requirements.txt
+```
 
-**URL:** `/run`\
-**Méthode:** `GET`\
-**Description:** Ce endpoint effectue une optimisation du portefeuille en maximisant le ratio de Sharpe, tout en utilisant la Conditional Value at Risk (CVaR) comme indicateur de risque.
-
-**Réponse:**\
-📌 Retourne les poids optimaux, la volatilité moyenne prédite, et un graphique des rendements cumulés du portefeuille optimisé selon la CVaR.
-
----
-
-## ⚙️ Détails Techniques
-
-### 🔹 Modèle LSTM
-
-- Entrée : Log-returns des cryptos, fenêtre de 30 jours
-- Architecture :
-  - 2 couches LSTM
-  - Dropout régulier
-  - Dense en sortie
-- Optimiseur : Adam
-- Fonction de perte : Mean Squared Error
-
-### 🔹 Optimisation du portefeuille
-
-- **Ratio de Sharpe :** Maximisation du rendement attendu divisé par la volatilité
-- **CVaR :** Évaluation du risque de pertes extrêmes (5% des pires cas)
-- **Contraintes :**
-  - Somme des poids = 1
-  - Autorisation des positions longues et courtes (-1 à 1)
-
----
-
-## 📌 Exemple d’Utilisation
-
-1️⃣ Démarrer un serveur FastAPI :
-
-```bash
+### **2️⃣ Start the FastAPI Server**
+```sh
 uvicorn main:app --reload
 ```
 
-2️⃣ Accéder à la documentation interactive :\
-📌 **Swagger UI** : `http://127.0.0.1:8000/docs`\
-📌 **ReDoc** : `http://127.0.0.1:8000/redoc`
+---
 
+## **🛠️ Features and Endpoints**
+### **1️⃣ Data Fetching**
+| **Endpoint** | **Description** |
+|-------------|---------------|
+| `/fetch-data/run` | Downloads cryptocurrency prices (`yfinance`) and the CVI index (`Investing.com`). |
+| `/fetch-data/plot` | Generates a chart of cryptocurrency prices. |
+
+---
+
+### **2️⃣ GARCH Model**
+| **Endpoint** | **Description** |
+|-------------|---------------|
+| `/garch/train-garch` | Trains a GARCH model for cryptocurrencies and saves volatility predictions. |
+| `/garch/plot-garch` | Displays a comparison between actual and predicted volatility from GARCH. |
+
+---
+
+### **3️⃣ LSTM-GARCH-CVI Model**
+| **Endpoint** | **Description** |
+|-------------|---------------|
+| `/lstm-garch-cvi/run` | Trains the LSTM model and generates volatility predictions. |
+| `/lstm-garch-cvi/plot` | Displays a comparison between actual and predicted volatility. |
+
+---
+
+### **4️⃣ Portfolio Optimization**
+#### 🔹 **Classic Sharpe Ratio**
+| **Endpoint** | **Description** |
+|-------------|---------------|
+| `/sharpe/run` | Optimizes the portfolio using the Sharpe ratio based on LSTM-GARCH-CVI volatility. |
+
+#### 🔹 **CVaR-Based Optimization**
+| **Endpoint** | **Description** |
+|-------------|---------------|
+| `/sharpe-cvar/run` | Optimizes the portfolio by maximizing the Sharpe ratio based on CVaR. |
+
+---
+
+### **5️⃣ Server Health and Documentation**
+| **Endpoint** | **Description** |
+|-------------|---------------|
+| `/health` | Checks server health and the presence of critical files (`log_returns.csv`, `crypto_prices.csv`, `cvi_data.csv`). |
+| `/readme` | Displays this README directly from the API. |
+
+---
+
+## **📈 Model Explanations**
+### **1️⃣ GARCH Model**
+- Used to model conditional volatility.
+- Expresses variance based on past shocks.
+- Implemented with **`arch`**.
+
+### **2️⃣ LSTM-GARCH-CVI Model**
+- **Inputs**: Historical volatility, GARCH volatility, CVI.
+- **Recurrent neural network (LSTM)** captures temporal patterns.
+- **Optimized** with `Adam` and `MSE` loss function.
+
+### **3️⃣ Portfolio Optimization**
+#### 📌 **Sharpe Ratio**
+- Maximization of:
+  \[
+  Sharpe = \frac{E[R_p] - R_f}{\sigma_p}
+  \]
+- Where \(E[R_p]\) = expected return, \(R_f\) = risk-free rate, \(\sigma_p\) = portfolio volatility.
+
+#### 📌 **CVaR (Conditional Value at Risk)**
+- Reduces extreme risk by optimizing:
+  \[
+  CVaR_{\alpha} = E[R | R < VaR_{\alpha}]
+  \]
+- Optimization **minimizes potential loss**.
+
+---
+
+## **📊 Results and Visualization**
+- **Graphs available** in `static/`
+- Comparison of **actual vs. predicted volatility**
+- Distribution of **optimized portfolio weights**
+- Cumulative performance of **Sharpe & CVaR portfolios**
+
+---
+
+## **🔗 Usage Examples**
+### **1️⃣ Test the Endpoints**
+Open [Swagger UI](http://127.0.0.1:8000/docs):
+```sh
+http://127.0.0.1:8000/docs
+```
+
+### **2️⃣ Run Predictions**
+```sh
+curl -X GET "http://127.0.0.1:8000/lstm-garch-cvi/run"
+```
+
+### **3️⃣ Optimize a Portfolio**
+```sh
+curl -X GET "http://127.0.0.1:8000/sharpe/run"
+```
+
+---
+
+## **🛠 Technologies Used**
+- **FastAPI** 🚀 (Ultra-fast API framework)
+- **NumPy / Pandas** 📊 (Data manipulation)
+- **Matplotlib** 📈 (Visualization)
+- **TensorFlow / Keras** 🤖 (Deep Learning LSTM)
+- **ARCH** 📉 (GARCH modeling)
+- **SciPy** 🏗 (Mathematical optimization)
+
+---
+
+## **📝 Future Improvements**
+✔️ Add **portfolio backtesting**.  
+✔️ Include **interactive visualization** via **Streamlit**.  
+✔️ Integrate **bidirectional RNNs** for better predictions.  
+
+---
+
+## **👨‍💻 Author**
+- **MOSEF Tonin Rivory Gaétan Dumas Pierre Liberge**
+- **Quantitative Finance Project**
+- **Submission Date: February 15, 2024**
+
+---
+
+This should be **perfectly clear and comprehensive**! 😊🔥 If you need any additions, let me know! 🚀
 

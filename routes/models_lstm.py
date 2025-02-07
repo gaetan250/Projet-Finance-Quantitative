@@ -125,7 +125,7 @@ def plot_lstm_results(request: Request):
             ax.plot(valid_test.index, valid_test.iloc[:, 0], label='Test - Volatility', color='#1f77b4')
             ax.plot(valid_test.index, valid_test["Predictions"], label='Test - Predictions', linestyle='--', color='#d62728')
 
-            ax.set_title(f'LSTM-GARCH-CVI Prediction for {crypto}')
+            ax.set_title(f'LSTM Prediction for {crypto}')
             ax.set_xlabel('Date')
             ax.set_ylabel('Volatility')
             ax.legend(loc='upper left')
