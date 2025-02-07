@@ -15,12 +15,14 @@ The objective is to optimize portfolio allocation by leveraging **Sharpe Ratio M
 
 ### **2️⃣ Portfolio Optimization**
 - **Classic Sharpe Ratio Optimization:**
-  - Maximizes the Sharpe Ratio: <img width="208" alt="Capture d’écran 2025-02-07 à 16 42 36" src="https://github.com/user-attachments/assets/9e46dcc9-e3ed-4a58-8b7c-e481a21fef67" />
-  - Where \(E[R_p]\) is expected return, \(R_f\) is the risk-free rate, and \(\sigma_p\) is portfolio volatility.
+  - Maximizes the Sharpe Ratio:
+  - <img width="208" alt="Capture d’écran 2025-02-07 à 16 42 36" src="https://github.com/user-attachments/assets/9e46dcc9-e3ed-4a58-8b7c-e481a21fef67" />
+  - Where E[R_p] is expected return, R_f is the risk-free rate, and sigma_p is portfolio volatility.
 - **CVaR-Based Optimization:**
   - Focuses on **tail risk management**, ensuring protection against extreme losses.
-  - Uses:<img width="236" alt="Capture d’écran 2025-02-07 à 16 42 55" src="https://github.com/user-attachments/assets/aac65c43-cf82-4526-8b9f-45118f4a5fa0" />
-  - Which represents expected loss given that the portfolio is in the worst \(\alpha\)% of cases.
+  - Uses:
+  - <img width="236" alt="Capture d’écran 2025-02-07 à 16 42 55" src="https://github.com/user-attachments/assets/aac65c43-cf82-4526-8b9f-45118f4a5fa0" />
+  - Which represents expected loss given that the portfolio is in the worst alpha of cases.
 
 ### **3️⃣ Practical Implementation via API**
 - The entire methodology is encapsulated within a **FastAPI-based microservice**, allowing users to:
